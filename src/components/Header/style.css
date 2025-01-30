@@ -1,0 +1,52 @@
+.header {
+  background: #fff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo img {
+  height: 32px;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 20px;
+  color: #1890ff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-menu {
+  border-bottom: none;
+  background: transparent;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+  .header-content {
+    padding: 0 16px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+  }
+} 

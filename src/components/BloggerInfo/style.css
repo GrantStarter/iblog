@@ -1,0 +1,61 @@
+.blogger-info {
+  margin-bottom: 24px;
+}
+
+.blogger-header {
+  text-align: center;
+  padding: 16px 0;
+}
+
+.blogger-header h2 {
+  margin: 16px 0 8px;
+  font-size: 20px;
+}
+
+.blogger-motto {
+  color: #666;
+  font-style: italic;
+}
+
+.blogger-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 14px;
+}
+
+.blogger-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.blogger-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.blogger-contact a,
+.blogger-contact span {
+  color: #666;
+}
+
+.blogger-contact a:hover {
+  color: #1890ff;
+} 

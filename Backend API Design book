@@ -1,0 +1,322 @@
+# IBlog 后端 API 设计文档
+
+## 一、基础信息
+
+### 1. 接口规范
+- 基础路径: `/api`
+- 请求/响应格式: JSON
+- 认证方式: Bearer Token (JWT)
+- 时间格式: ISO 8601 (例如: "2024-03-20T08:00:00Z")
+
+### 2. 通用响应格式
+```json
+{
+    "code": 200,           // 状态码
+    "message": "success",  // 响应消息
+    "data": {}            // 响应数据
+}
+```
+
+### 3. 通用状态码
+- 200: 成功
+- 400: 请求参数错误
+- 401: 未认证
+- 403: 无权限
+- 404: 资源不存在
+- 500: 服务器错误
+
+## 二、API 详细设计
+
+### 1. 用户认证模块 (/api/auth)
+
+#### 1.1 用户注册
+- 路径: POST /api/auth/register
+- 请求体:
+```json
+{
+    "username": "string",
+    "password": "string",
+    "email": "string",
+    "nickname": "string"
+}
+```
+- 响应体:
+```json
+{
+    "code": 200,
+    "message": "注册成功",
+    "data": {
+        "userId": "long",
+        "username": "string",
+        "nickname": "string",
+        "token": "string"
+    }
+}
+```
+
+#### 1.2 用户登录
+- 路径: POST /api/auth/login
+- 请求体:
+```json
+{
+    "username": "string",
+    "password": "string"
+}
+```
+- 响应体:
+```json
+{
+    "code": 200,
+    "message": "登录成功",
+    "data": {
+        "token": "string",
+        "userInfo": {
+            "id": "long",
+            "username": "string",
+            "nickname": "string",
+            "avatar": "string",
+            "role": "string"
+        }
+    }
+}
+```
+
+### 2. 文章模块 (/api/articles)
+
+#### 2.1 获取文章列表
+- 路径: GET /api/articles
+- 参数:
+  - page: int (默认1)
+  - size: int (默认10)
+  - categoryId: long (可选)
+  - keyword: string (可选)
+- 响应体:
+```json
+{
+    "code": 200,
+    "data": {
+        "total": "long",
+        "list": [{
+            "id": "long",
+            "title": "string",
+            "summary": "string",
+            "authorName": "string",
+            "categoryName": "string",
+            "views": "int",
+            "likes": "int",
+            "createdTime": "datetime"
+        }]
+    }
+}
+```
+
+#### 2.2 获取文章详情
+- 路径: GET /api/articles/{id}
+- 响应体:
+```json
+{
+    "code": 200,
+    "data": {
+        "id": "long",
+        "title": "string",
+        "content": "string",
+        "author": {
+            "id": "long",
+            "nickname": "string",
+            "avatar": "string"
+        },
+        "category": {
+            "id": "long",
+            "name": "string"
+        },
+        "views": "int",
+        "likes": "int",
+        "createdTime": "datetime",
+        "updatedTime": "datetime"
+    }
+}
+```
+
+#### 2.3 创建文章
+- 路径: POST /api/articles
+- 请求头: Authorization: Bearer {token}
+- 请求体:
+```json
+{
+    "title": "string",
+    "content": "string",
+    "categoryId": "long",
+    "isTop": "boolean"
+}
+```
+
+#### 2.4 更新文章
+- 路径: PUT /api/articles/{id}
+- 请求头: Authorization: Bearer {token}
+- 请求体:
+```json
+{
+    "title": "string",
+    "content": "string",
+    "categoryId": "long",
+    "isTop": "boolean"
+}
+```
+
+### 3. 分类模块 (/api/categories)
+
+#### 3.1 获取分类列表
+- 路径: GET /api/categories
+- 响应体:
+```json
+{
+    "code": 200,
+    "data": [{
+        "id": "long",
+        "name": "string",
+        "description": "string",
+        "articleCount": "int"
+    }]
+}
+```
+
+#### 3.2 创建分类
+- 路径: POST /api/categories
+- 请求头: Authorization: Bearer {token}
+- 请求体:
+```json
+{
+    "name": "string",
+    "description": "string"
+}
+```
+
+### 4. 评论模块 (/api/comments)
+
+#### 4.1 获取文章评论
+- 路径: GET /api/comments/article/{articleId}
+- 参数:
+  - page: int (默认1)
+  - size: int (默认20)
+- 响应体:
+```json
+{
+    "code": 200,
+    "data": {
+        "total": "long",
+        "list": [{
+            "id": "long",
+            "content": "string",
+            "user": {
+                "id": "long",
+                "nickname": "string",
+                "avatar": "string"
+            },
+            "parentId": "long",
+            "createdTime": "datetime",
+            "replies": [
+                // 嵌套相同结构
+            ]
+        }]
+    }
+}
+```
+
+#### 4.2 发表评论
+- 路径: POST /api/comments
+- 请求头: Authorization: Bearer {token}
+- 请求体:
+```json
+{
+    "articleId": "long",
+    "content": "string",
+    "parentId": "long"  // 可选，回复某条评论时需要
+}
+```
+
+### 5. 用户模块 (/api/users)
+
+#### 5.1 获取用户信息
+- 路径: GET /api/users/{id}
+- 响应体:
+```json
+{
+    "code": 200,
+    "data": {
+        "id": "long",
+        "nickname": "string",
+        "avatar": "string",
+        "articleCount": "int",
+        "createdTime": "datetime"
+    }
+}
+```
+
+#### 5.2 更新用户信息
+- 路径: PUT /api/users/current
+- 请求头: Authorization: Bearer {token}
+- 请求体:
+```json
+{
+    "nickname": "string",
+    "avatar": "string",
+    "email": "string"
+}
+```
+
+## 三、权限控制
+
+### 1. 角色定义
+- ADMIN: 管理员
+- USER: 普通用户
+- GUEST: 游客
+
+### 2. 接口权限
+- 公开接口:
+  - 获取文章列表
+  - 获取文章详情
+  - 获取分类列表
+  - 获取评论列表
+  - 用户注册
+  - 用户登录
+  
+- 需要用户认证:
+  - 创建/更新/删除文章
+  - 发表评论
+  - 更新个人信息
+  
+- 需要管理员权限:
+  - 创建/更新/删除分类
+  - 管理用户状态
+  - 删除评论
+
+## 四、注意事项
+
+1. 所有涉及敏感信息的接口必须使用 HTTPS
+2. 文章内容需要进行 XSS 过滤
+3. 评论内容需要进行敏感词过滤
+4. 用户密码传输时需要加密
+5. 需要实现接口访问频率限制
+6. 文件上传需要限制大小和类型
+7. 所有列表接口都需要实现分页
+
+## 五、错误码列表
+
+```
+10000: 系统通用错误
+10001: 参数验证失败
+10002: 资源不存在
+
+20000: 用户模块错误
+20001: 用户名已存在
+20002: 密码错误
+20003: 账号被禁用
+
+30000: 文章模块错误
+30001: 无权限操作文章
+30002: 文章已删除
+
+40000: 评论模块错误
+40001: 评论内容包含敏感词
+40002: 评论已删除
+``` 

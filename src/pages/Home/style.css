@@ -1,0 +1,19 @@
+.home-content {
+  padding: 0 50px;
+  background: #f0f2f5;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 24px auto;
+}
+
+@media screen and (max-width: 768px) {
+  .home-content {
+    padding: 0 16px;
+  }
+  
+  .content-wrapper {
+    margin: 16px auto;
+  }
+} 

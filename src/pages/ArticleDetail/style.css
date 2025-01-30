@@ -1,0 +1,116 @@
+.article-detail-content {
+  padding: 0 50px;
+  background: #f0f2f5;
+}
+
+.article-container {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 32px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-meta {
+  margin: 16px 0 24px;
+  color: #666;
+}
+
+.article-content {
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .article-detail-content {
+    padding: 0 16px;
+  }
+  
+  .article-container {
+    padding: 16px;
+    margin: 16px auto;
+  }
+}
+
+.comments-section {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.comment-item {
+  margin-bottom: 24px;
+}
+
+.comment-meta {
+  margin-bottom: 8px;
+}
+
+.comment-author {
+  font-weight: 500;
+  margin-right: 12px;
+}
+
+.comment-time {
+  color: #999;
+  font-size: 12px;
+}
+
+.comment-content {
+  color: #333;
+  line-height: 1.5;
+}
+
+.comment-reply {
+  margin-top: 16px;
+  margin-left: 48px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.error-message {
+  text-align: center;
+  padding: 48px 0;
+}
+
+.error-message h2 {
+  color: #ff4d4f;
+  margin-bottom: 24px;
+}
+
+.article-header {
+  position: relative;
+}
+
+.article-header .ant-btn {
+  padding-left: 0;
+}
+
+.article-content-preview {
+  color: #666;
+  margin-top: 16px;
+}
+
+.comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.comment-login-tip {
+  color: #666;
+}
+
+.comment-login-tip a {
+  margin: 0 4px;
+  color: #1890ff;
+}
+
+.register-tip {
+  text-align: center;
+  color: #666;
+  margin-bottom: 24px;
+} 

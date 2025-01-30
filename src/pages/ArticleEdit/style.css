@@ -1,0 +1,41 @@
+.article-edit-content {
+  padding: 0 50px;
+  background: #f0f2f5;
+}
+
+.edit-container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 32px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-form {
+  width: 100%;
+}
+
+.article-form :global(.bytemd) {
+  height: calc(100vh - 400px);
+  min-height: 400px;
+}
+
+.article-form .ant-form-item-label {
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .article-edit-content {
+    padding: 0 16px;
+  }
+  
+  .edit-container {
+    padding: 16px;
+    margin: 16px auto;
+  }
+  
+  .article-form :global(.bytemd) {
+    height: calc(100vh - 300px);
+  }
+} 
