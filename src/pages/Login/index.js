@@ -19,7 +19,7 @@ const Login = () => {
    */
   const onFinish = async (values) => {
     try {
-      const response = await request.post('/auth/login', values);
+      const response = await request.post('http://localhost:8080/api/login', values);
       setToken(response.token);
       message.success('登录成功');
       navigate('/');

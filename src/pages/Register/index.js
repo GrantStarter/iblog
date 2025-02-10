@@ -15,17 +15,18 @@ const Register = () => {
 
   /**
    * 处理表单提交
-   * @param {Object} values - 表单值，包含用户名和密码
+   * @param {Object} values - 表单值，包含用户名和密码,以及邮箱
    * @returns {Promise<void>} 返回处理注册的 Promise
    */
   const onFinish = async (values) => {
     try {
-      await request.post('/auth/register', {
+      await request.post('http://localhost:8080/api/register', {
         username: values.username,
-        password: values.password
+        password: values.password,
+        email: values.email
       });
       message.success('注册成功，请登录');
-      navigate('/login');
+      navigate('/api/login');
     } catch (error) {
       message.error('注册失败：' + error.message);
     }
@@ -79,6 +80,16 @@ const Register = () => {
           ]}
         >
           <Input.Password placeholder="请确认密码" />
+        </Form.Item>
+
+        <Form.Item
+          name="email"
+          rules={[
+            { required: true, message: '请输入邮箱' },
+            {min: 1}
+          ]}
+        >
+          <Input placeholder="请输入邮箱" />
         </Form.Item>
 
         <Form.Item>
